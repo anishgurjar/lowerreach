@@ -1,6 +1,6 @@
 import { keyframes, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Avatar, IconDotsVertical, IconSparkles } from 'twenty-ui/display';
+import { Avatar, IconDotsVertical } from 'twenty-ui/display';
 
 import { LightCopyIconButton } from '@/object-record/record-field/components/LightCopyIconButton';
 import { AgentChatFilePreview } from '@/workflow/workflow-steps/workflow-actions/ai-agent-action/components/AgentChatFilePreview';
@@ -8,6 +8,7 @@ import { AgentChatMessageRole } from '@/workflow/workflow-steps/workflow-actions
 
 import { AgentChatMessage } from '~/generated/graphql';
 import { beautifyPastDateRelativeToNow } from '~/utils/date-utils';
+import { LowerLogo } from './LowerLogo';
 
 const StyledMessageBubble = styled.div<{ isUser?: boolean }>`
   display: flex;
@@ -165,9 +166,8 @@ export const AIChatMessage = ({
           <StyledAvatarContainer>
             <Avatar
               size="sm"
-              placeholder="AI"
-              Icon={IconSparkles}
-              iconColor={theme.color.blue}
+              placeholder="LOAI"
+              Icon={LowerLogo}
             />
           </StyledAvatarContainer>
         )}

@@ -7,6 +7,7 @@ import { FeatureFlagKey } from 'src/engine/core-modules/feature-flag/enums/featu
 import { FeatureFlagService } from 'src/engine/core-modules/feature-flag/services/feature-flag.service';
 import { UserWorkspace } from 'src/engine/core-modules/user-workspace/user-workspace.entity';
 import { Workspace } from 'src/engine/core-modules/workspace/workspace.entity';
+import { AgentRoleService } from 'src/engine/metadata-modules/agent-role/agent-role.service';
 import { AgentService } from 'src/engine/metadata-modules/agent/agent.service';
 import { DataSourceEntity } from 'src/engine/metadata-modules/data-source/data-source.entity';
 import { DataSourceService } from 'src/engine/metadata-modules/data-source/data-source.service';
@@ -45,6 +46,7 @@ export class WorkspaceManagerService {
     @InjectRepository(RoleTargetsEntity, 'core')
     private readonly roleTargetsRepository: Repository<RoleTargetsEntity>,
     private readonly agentService: AgentService,
+    private readonly agentRoleService: AgentRoleService,
   ) {}
 
   public async init({
@@ -212,14 +214,38 @@ export class WorkspaceManagerService {
   private async initDefaultAgent(workspaceId: string) {
     const agent = await this.agentService.createOneAgent(
       {
-        label: 'Routing Agent',
-        name: 'routing-agent',
-        description: 'Default Routing Agent',
-        prompt: '',
+        label: 'LOAI Agent',
+        name: 'loai-agent',
+        description:
+          'LOAI assistant for Lower.com helping recruiters with Lower Reach CRM and prospect research',
+        prompt:
+          'You are LOAI, an intelligent assistant for Lower.com helping recruiters with Lower Reach (this CRM) and researching prospects. Help with candidate sourcing, pipeline management, interview scheduling, talent research, and recruiting analytics.',
         modelId: 'auto',
       },
       workspaceId,
     );
+
+    // Get the workspace to find the default role
+    const workspace = await this.workspaceRepository.findOne({
+      where: { id: workspaceId },
+    });
+
+    if (workspace?.defaultRoleId) {
+      // Assign the default workspace role to the agent so it has database access
+      await this.agentRoleService.assignRoleToAgent({
+        agentId: agent.id,
+        roleId: workspace.defaultRoleId,
+        workspaceId,
+      });
+
+      this.logger.log(
+        `Assigned default role ${workspace.defaultRoleId} to agent ${agent.id}`,
+      );
+    } else {
+      this.logger.warn(
+        `No default role found for workspace ${workspaceId}, agent ${agent.id} will have limited access`,
+      );
+    }
 
     await this.workspaceRepository.update(workspaceId, {
       defaultAgentId: agent.id,

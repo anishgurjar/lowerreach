@@ -13,15 +13,15 @@ import { BaseOutputSchema } from '@/workflow/workflow-variables/types/StepOutput
 import styled from '@emotion/styled';
 import { t } from '@lingui/core/macro';
 import {
-  IconMessage,
-  IconSettings,
-  IconTool,
-  useIcons,
+    IconMessage,
+    IconSettings,
+    IconTool,
+    useIcons,
 } from 'twenty-ui/display';
 import { RightDrawerSkeletonLoader } from '~/loading/components/RightDrawerSkeletonLoader';
 import {
-  WORKFLOW_AI_AGENT_TAB_LIST_COMPONENT_ID,
-  WorkflowAiAgentTabId,
+    WORKFLOW_AI_AGENT_TAB_LIST_COMPONENT_ID,
+    WorkflowAiAgentTabId,
 } from '../constants/workflow-ai-agent-tabs';
 import { useAgentRoleAssignment } from '../hooks/useAgentRoleAssignment';
 import { useAgentUpdateFormState } from '../hooks/useAgentUpdateFormState';
@@ -59,7 +59,7 @@ export const WorkflowEditActionAiAgent = ({
   const { headerTitle, headerIcon, headerIconColor, headerType } =
     useWorkflowActionHeader({
       action,
-      defaultTitle: 'AI Agent',
+      defaultTitle: 'LOAI Agent',
     });
 
   const agentId = action.settings.input.agentId;
@@ -130,7 +130,7 @@ export const WorkflowEditActionAiAgent = ({
                 <div>
                   <Select
                     dropdownId="select-model"
-                    label={t`AI Model`}
+                    label={t`LOAI Model`}
                     options={modelOptions}
                     value={formValues.modelId}
                     onChange={(value) => handleFieldChange('modelId', value)}
@@ -149,8 +149,8 @@ export const WorkflowEditActionAiAgent = ({
                 </div>
                 <FormTextFieldInput
                   key={`prompt-${formValues.modelId ? action.id : 'empty'}`}
-                  label={t`Instructions for AI`}
-                  placeholder={t`Describe what you want the AI to do...`}
+                  label={t`Instructions for LOAI`}
+                  placeholder={t`Describe what you want LOAI to do...`}
                   readonly={actionOptions.readonly}
                   defaultValue={formValues.prompt}
                   onChange={(value) => handleFieldChange('prompt', value)}

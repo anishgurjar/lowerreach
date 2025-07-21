@@ -1,7 +1,8 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { t } from '@lingui/core/macro';
-import { IconSparkles } from 'twenty-ui/display';
+import { LowerLogo } from './LowerLogo';
+
 const StyledEmptyState = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,7 +13,7 @@ const StyledEmptyState = styled.div`
   height: 100%;
 `;
 
-const StyledSparkleIcon = styled.div`
+const StyledLogoIcon = styled.div`
   align-items: center;
   background: ${({ theme }) => theme.background.transparent.blue};
   border-radius: ${({ theme }) => theme.border.radius.sm};
@@ -39,12 +40,12 @@ export const AIChatEmptyState = () => {
 
   return (
     <StyledEmptyState>
-      <StyledSparkleIcon>
-        <IconSparkles size={theme.icon.size.lg} color={theme.color.blue} />
-      </StyledSparkleIcon>
-      <StyledTitle>{t`Chat`}</StyledTitle>
+      <StyledLogoIcon>
+        <LowerLogo size={theme.icon.size.lg} />
+      </StyledLogoIcon>
+      <StyledTitle>{t`Chat with LOAI`}</StyledTitle>
       <StyledDescription>
-        {t`Start a conversation with your AI agent to get workflow insights, task assistance, and process guidance`}
+        {t`Start a conversation with LOAI to get help with recruiting, candidate research, pipeline management, and talent acquisition insights`}
       </StyledDescription>
     </StyledEmptyState>
   );

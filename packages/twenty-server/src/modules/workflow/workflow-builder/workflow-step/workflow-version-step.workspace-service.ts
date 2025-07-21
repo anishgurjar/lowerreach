@@ -4,9 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { t } from '@lingui/core/macro';
 import { FieldMetadataType } from 'twenty-shared/types';
 import { isDefined, isValidUuid } from 'twenty-shared/utils';
+import { StepStatus } from 'twenty-shared/workflow';
 import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
-import { StepStatus } from 'twenty-shared/workflow';
 
 import { BASE_TYPESCRIPT_PROJECT_INPUT_SCHEMA } from 'src/engine/core-modules/serverless/drivers/constants/base-typescript-project-input-schema';
 import { CreateWorkflowVersionStepInput } from 'src/engine/core-modules/workflow/dtos/create-workflow-version-step-input.dto';
@@ -18,8 +18,8 @@ import { ServerlessFunctionService } from 'src/engine/metadata-modules/serverles
 import { ScopedWorkspaceContextFactory } from 'src/engine/twenty-orm/factories/scoped-workspace-context.factory';
 import { TwentyORMGlobalManager } from 'src/engine/twenty-orm/twenty-orm-global.manager';
 import {
-  WorkflowVersionStepException,
-  WorkflowVersionStepExceptionCode,
+    WorkflowVersionStepException,
+    WorkflowVersionStepExceptionCode,
 } from 'src/modules/workflow/common/exceptions/workflow-version-step.exception';
 import { StepOutput } from 'src/modules/workflow/common/standard-objects/workflow-run.workspace-entity';
 import { WorkflowVersionWorkspaceEntity } from 'src/modules/workflow/common/standard-objects/workflow-version.workspace-entity';
@@ -30,9 +30,9 @@ import { insertStep } from 'src/modules/workflow/workflow-builder/workflow-step/
 import { removeStep } from 'src/modules/workflow/workflow-builder/workflow-step/utils/remove-step';
 import { BaseWorkflowActionSettings } from 'src/modules/workflow/workflow-executor/workflow-actions/types/workflow-action-settings.type';
 import {
-  WorkflowAction,
-  WorkflowActionType,
-  WorkflowFormAction,
+    WorkflowAction,
+    WorkflowActionType,
+    WorkflowFormAction,
 } from 'src/modules/workflow/workflow-executor/workflow-actions/types/workflow-action.type';
 import { WorkflowRunWorkspaceService } from 'src/modules/workflow/workflow-runner/workflow-run/workflow-run.workspace-service';
 import { WorkflowRunnerWorkspaceService } from 'src/modules/workflow/workflow-runner/workspace-services/workflow-runner.workspace-service';
@@ -618,8 +618,8 @@ export class WorkflowVersionStepWorkspaceService {
       case WorkflowActionType.AI_AGENT: {
         const newAgent = await this.agentService.createOneAgentAndFirstThread(
           {
-            label: 'AI Agent Workflow Step',
-            name: `ai-agent-workflow-${newStepId}`,
+            label: 'LOAI Agent Workflow Step',
+            name: `loai-agent-workflow-${newStepId}`,
             description: 'Created automatically for workflow step',
             prompt: '',
             modelId: 'auto',
@@ -630,14 +630,14 @@ export class WorkflowVersionStepWorkspaceService {
 
         if (!isDefined(newAgent)) {
           throw new WorkflowVersionStepException(
-            'Failed to create AI Agent Step',
+            'Failed to create LOAI Agent Step',
             WorkflowVersionStepExceptionCode.FAILURE,
           );
         }
 
         return {
           id: newStepId,
-          name: 'AI Agent',
+          name: 'LOAI Agent',
           type: WorkflowActionType.AI_AGENT,
           valid: false,
           settings: {

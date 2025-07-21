@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
+import { DataSource } from 'typeorm';
+
 import { TypeORMService } from 'src/database/typeorm/typeorm.service';
 import { FeatureFlagService } from 'src/engine/core-modules/feature-flag/services/feature-flag.service';
 import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
@@ -17,16 +19,16 @@ export class DevSeederService {
   private readonly logger = new Logger(DevSeederService.name);
 
   constructor(
-    private readonly typeORMService: TypeORMService,
-    private readonly workspaceCacheStorageService: WorkspaceCacheStorageService,
-    private readonly twentyConfigService: TwentyConfigService,
     private readonly workspaceDataSourceService: WorkspaceDataSourceService,
-    private readonly dataSourceService: DataSourceService,
-    private readonly featureFlagService: FeatureFlagService,
-    private readonly workspaceSyncMetadataService: WorkspaceSyncMetadataService,
     private readonly devSeederMetadataService: DevSeederMetadataService,
     private readonly devSeederPermissionsService: DevSeederPermissionsService,
     private readonly devSeederDataService: DevSeederDataService,
+    private readonly dataSourceService: DataSourceService,
+    private readonly workspaceSyncMetadataService: WorkspaceSyncMetadataService,
+    private readonly typeORMService: TypeORMService,
+    private readonly workspaceCacheStorageService: WorkspaceCacheStorageService,
+    private readonly twentyConfigService: TwentyConfigService,
+    private readonly featureFlagService: FeatureFlagService,
   ) {}
 
   public async seedDev(workspaceId: string): Promise<void> {
@@ -73,11 +75,48 @@ export class DevSeederService {
 
     await this.devSeederPermissionsService.initPermissions(workspaceId);
 
+    // Fix: Assign roles to agents after permissions are created
+    await this.assignRolesToAgents(mainDataSource, workspaceId);
+
     await this.devSeederDataService.seed({
       schemaName: dataSourceMetadata.schema,
       workspaceId,
     });
 
     await this.workspaceCacheStorageService.flush(workspaceId, undefined);
+  }
+
+  private async assignRolesToAgents(
+    dataSource: DataSource,
+    workspaceId: string,
+  ) {
+    try {
+      // Assign default workspace role to agent that was created during seedCoreSchema
+      const result = await dataSource.query(
+        `
+        INSERT INTO core."roleTargets" ("roleId", "agentId", "workspaceId", "createdAt", "updatedAt")
+        SELECT w."defaultRoleId", w."defaultAgentId", w.id, NOW(), NOW()
+        FROM core.workspace w
+        WHERE w.id = $1 
+          AND w."defaultRoleId" IS NOT NULL 
+          AND w."defaultAgentId" IS NOT NULL
+          AND NOT EXISTS (
+            SELECT 1 FROM core."roleTargets" rt 
+            WHERE rt."agentId" = w."defaultAgentId"
+          )
+      `,
+        [workspaceId],
+      );
+
+      if (result.length > 0) {
+        this.logger.log(
+          `Assigned default role to agent for workspace ${workspaceId}`,
+        );
+      }
+    } catch (error) {
+      this.logger.warn(
+        `Failed to assign role to agent for workspace ${workspaceId}: ${error.message}`,
+      );
+    }
   }
 }

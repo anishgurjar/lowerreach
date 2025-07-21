@@ -4,9 +4,10 @@ import { ActionConfig } from '@/action-menu/actions/types/ActionConfig';
 import { ActionScope } from '@/action-menu/actions/types/ActionScope';
 import { ActionType } from '@/action-menu/actions/types/ActionType';
 import { ActionViewType } from '@/action-menu/actions/types/ActionViewType';
+import { LowerLogo } from '@/ai/components/LowerLogo';
 import { CommandMenuPages } from '@/command-menu/types/CommandMenuPages';
 import { msg } from '@lingui/core/macro';
-import { IconHistory, IconSearch, IconSparkles } from 'twenty-ui/display';
+import { IconHistory, IconSearch } from 'twenty-ui/display';
 
 export const RECORD_AGNOSTIC_ACTIONS_CONFIG: Record<string, ActionConfig> = {
   [RecordAgnosticActionsKeys.SEARCH_RECORDS]: {
@@ -54,17 +55,17 @@ export const RECORD_AGNOSTIC_ACTIONS_CONFIG: Record<string, ActionConfig> = {
     type: ActionType.Standard,
     scope: ActionScope.Global,
     key: RecordAgnosticActionsKeys.ASK_AI,
-    label: msg`Ask AI`,
-    shortLabel: msg`Ask AI`,
+    label: msg`Ask LOAI`,
+    shortLabel: msg`Ask LOAI`,
     position: 2,
     isPinned: false,
-    Icon: IconSparkles,
+    Icon: LowerLogo,
     availableOn: [ActionViewType.GLOBAL],
     component: (
       <ActionOpenSidePanelPage
         page={CommandMenuPages.AskAI}
-        pageTitle={msg`Ask AI`}
-        pageIcon={IconSparkles}
+        pageTitle={msg`Ask LOAI`}
+        pageIcon={LowerLogo}
       />
     ),
     hotKeys: ['@'],
@@ -74,8 +75,8 @@ export const RECORD_AGNOSTIC_ACTIONS_CONFIG: Record<string, ActionConfig> = {
     type: ActionType.Standard,
     scope: ActionScope.Global,
     key: RecordAgnosticActionsKeys.VIEW_PREVIOUS_AI_CHATS,
-    label: msg`View Previous AI Chats`,
-    shortLabel: msg`Previous AI Chats`,
+    label: msg`View Previous LOAI Chats`,
+    shortLabel: msg`Previous LOAI Chats`,
     position: 3,
     isPinned: false,
     Icon: IconHistory,
@@ -83,8 +84,8 @@ export const RECORD_AGNOSTIC_ACTIONS_CONFIG: Record<string, ActionConfig> = {
     component: (
       <ActionOpenSidePanelPage
         page={CommandMenuPages.ViewPreviousAIChats}
-        pageTitle={msg`View Previous AI Chats`}
-        pageIcon={IconSparkles}
+        pageTitle={msg`View Previous LOAI Chats`}
+        pageIcon={LowerLogo}
       />
     ),
     shouldBeRegistered: () => true,

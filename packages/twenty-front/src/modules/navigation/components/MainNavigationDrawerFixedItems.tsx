@@ -1,3 +1,4 @@
+import { LowerLogo } from '@/ai/components/LowerLogo';
 import { useOpenAskAIPageInCommandMenu } from '@/command-menu/hooks/useOpenAskAIPageInCommandMenu';
 import { useOpenRecordsSearchPageInCommandMenu } from '@/command-menu/hooks/useOpenRecordsSearchPageInCommandMenu';
 import { SettingsPath } from '@/types/SettingsPath';
@@ -9,7 +10,7 @@ import { useIsFeatureEnabled } from '@/workspace/hooks/useIsFeatureEnabled';
 import { useLingui } from '@lingui/react/macro';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { IconSearch, IconSettings, IconSparkles } from 'twenty-ui/display';
+import { IconSearch, IconSettings } from 'twenty-ui/display';
 import { useIsMobile } from 'twenty-ui/utilities';
 import { FeatureFlagKey } from '~/generated/graphql';
 import { getSettingsPath } from '~/utils/navigation/getSettingsPath';
@@ -47,8 +48,8 @@ export const MainNavigationDrawerFixedItems = () => {
         />
         {isAiEnabled && (
           <NavigationDrawerItem
-            label={t`Ask AI`}
-            Icon={IconSparkles}
+            label={t`Ask LOAI`}
+            Icon={LowerLogo}
             onClick={() => openAskAIPage()}
             keyboard={['@']}
             mouseUpNavigation={true}

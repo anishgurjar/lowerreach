@@ -3,8 +3,8 @@ import { DataSource } from 'typeorm';
 import { AgentChatMessageRole } from 'src/engine/metadata-modules/agent/agent-chat-message.entity';
 import { USER_WORKSPACE_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/core/utils/seed-user-workspaces.util';
 import {
-  SEED_APPLE_WORKSPACE_ID,
-  SEED_YCOMBINATOR_WORKSPACE_ID,
+    SEED_APPLE_WORKSPACE_ID,
+    SEED_YCOMBINATOR_WORKSPACE_ID,
 } from 'src/engine/workspace-manager/dev-seeder/core/utils/seed-workspaces.util';
 
 const agentTableName = 'agent';
@@ -112,7 +112,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.USER,
         content:
-          'Hello! Can you help me understand our current product roadmap and key metrics?',
+          'Hello! Can you help me understand our current recruiting pipeline and key metrics?',
         createdAt: new Date(baseTime.getTime()),
       },
       {
@@ -120,7 +120,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.ASSISTANT,
         content:
-          "Hello! I'd be happy to help you understand Apple's product roadmap and metrics. Based on your workspace data, I can see you have various projects and initiatives tracked. What specific aspect would you like to explore - product development timelines, user engagement metrics, or revenue targets?",
+          "Hello! I'm LOAI, your recruiting assistant. I'd be happy to help you understand your recruiting pipeline and metrics. Based on your Lower Reach CRM data, I can analyze candidate flow, interview conversion rates, and time-to-hire metrics. What specific recruiting aspect would you like to explore - candidate sourcing performance, interview pipeline, or hiring analytics?",
         createdAt: new Date(baseTime.getTime() + 5 * 60 * 1000), // 5 minutes later
       },
       {
@@ -128,7 +128,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.USER,
         content:
-          "I'd like to focus on our user engagement metrics and how they're trending over the last quarter.",
+          "I'd like to focus on our candidate conversion rates and how they're trending over the last quarter.",
         createdAt: new Date(baseTime.getTime() + 10 * 60 * 1000), // 10 minutes later
       },
       {
@@ -136,7 +136,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.ASSISTANT,
         content:
-          'Great! Looking at your user engagement data, I can see several key trends from the last quarter. Your active user base has grown by 15%, with particularly strong engagement in the mobile app. Daily active users are averaging 2.3 million, and session duration has increased by 8%. Would you like me to dive deeper into any specific engagement metrics or create a detailed report?',
+          'Great! Looking at your recruiting data, I can see several key trends from the last quarter. Your application-to-interview conversion rate has improved by 12%, now averaging 18%. Interview-to-offer conversion is at 35%, up from 32% last quarter. Time-to-hire has decreased to 28 days on average. Your top-performing sources are LinkedIn (45% conversion) and employee referrals (62% conversion). Would you like me to dive deeper into any specific conversion metrics or create a detailed recruiting performance report?',
         createdAt: new Date(baseTime.getTime() + 15 * 60 * 1000), // 15 minutes later
       },
     ];
@@ -153,7 +153,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.USER,
         content:
-          'What are the current startup trends and which companies in our portfolio are performing best?',
+          'What are the current startup talent trends and which recruiting strategies are performing best?',
         createdAt: new Date(baseTime.getTime()),
       },
       {
@@ -161,7 +161,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.ASSISTANT,
         content:
-          'Hello! I can help you analyze startup trends and portfolio performance. From your YCombinator workspace data, I can see strong performance in AI/ML startups, particularly in the B2B SaaS space. Several companies are showing 40%+ month-over-month growth. Would you like me to provide specific company performance metrics or focus on broader industry trends?',
+          "Hello! I'm LOAI, your recruiting assistant. I can help you analyze startup talent trends and recruiting performance. From your Lower Reach CRM data, I can see strong success in tech recruiting, particularly for engineering and product roles. Several recruiting strategies are showing 40%+ improvement in candidate quality. Would you like me to provide specific recruiting metrics or focus on broader talent acquisition trends?",
         createdAt: new Date(baseTime.getTime() + 3 * 60 * 1000), // 3 minutes later
       },
       {
@@ -169,7 +169,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.USER,
         content:
-          'Please focus on our top 5 performing companies and their key metrics.',
+          'Please focus on our top 5 performing recruiting channels and their key metrics.',
         createdAt: new Date(baseTime.getTime() + 8 * 60 * 1000), // 8 minutes later
       },
       {
@@ -177,7 +177,7 @@ const seedAgentChatMessages = async (
         threadId,
         role: AgentChatMessageRole.ASSISTANT,
         content:
-          'Here are your top 5 performing portfolio companies: 1) TechFlow AI - 45% MoM growth, $2M ARR, 2) DataSync Pro - 38% MoM growth, $1.5M ARR, 3) CloudOps Solutions - 35% MoM growth, $3.2M ARR, 4) SecureNet - 32% MoM growth, $1.8M ARR, 5) HealthTech Plus - 28% MoM growth, $2.5M ARR. All are showing strong customer retention (>95%) and expanding market share. Would you like detailed breakdowns for any specific company?',
+          'Here are your top 5 performing recruiting channels: 1) Employee Referrals - 65% hire rate, 22 days avg time-to-hire, 2) LinkedIn Recruiting - 42% hire rate, 28 days avg time-to-hire, 3) GitHub sourcing - 38% hire rate, 31 days avg time-to-hire, 4) University partnerships - 35% hire rate, 45 days avg time-to-hire, 5) Technical communities - 32% hire rate, 26 days avg time-to-hire. All channels show strong candidate retention (>92%) and positive hiring manager feedback. Would you like detailed breakdowns for any specific channel?',
         createdAt: new Date(baseTime.getTime() + 12 * 60 * 1000), // 12 minutes later
       },
     ];
@@ -214,16 +214,16 @@ export const seedAgents = async (
 
   if (workspaceId === SEED_APPLE_WORKSPACE_ID) {
     agentId = AGENT_DATA_SEED_IDS.APPLE_DEFAULT_AGENT;
-    agentName = 'apple-ai-assistant';
-    agentLabel = 'Apple AI Assistant';
+    agentName = 'apple-loai-assistant';
+    agentLabel = 'Apple LOAI Assistant';
     agentDescription =
-      'AI assistant for Apple workspace to help with tasks, insights, and workflow guidance';
+      'LOAI assistant for Apple workspace to help with recruiting, candidate research, and talent pipeline management';
   } else if (workspaceId === SEED_YCOMBINATOR_WORKSPACE_ID) {
     agentId = AGENT_DATA_SEED_IDS.YCOMBINATOR_DEFAULT_AGENT;
-    agentName = 'yc-ai-assistant';
-    agentLabel = 'YC AI Assistant';
+    agentName = 'yc-loai-assistant';
+    agentLabel = 'YC LOAI Assistant';
     agentDescription =
-      'AI assistant for YCombinator workspace to help with tasks, insights, and workflow guidance';
+      'LOAI assistant for YCombinator workspace to help with recruiting, startup talent research, and candidate sourcing';
   } else {
     throw new Error(
       `Unsupported workspace ID for agent seeding: ${workspaceId}`,
@@ -251,7 +251,7 @@ export const seedAgents = async (
         label: agentLabel,
         description: agentDescription,
         prompt:
-          'You are a helpful AI assistant for this workspace. Help users with their tasks, provide insights about their data, and guide them through workflows. Be concise but thorough in your responses.',
+          'You are LOAI, an intelligent assistant for Lower.com helping recruiters with talent acquisition and prospect research. Help users with candidate sourcing, pipeline management, interview coordination, and recruiting analytics.',
         modelId: 'auto',
         responseFormat: null,
         workspaceId,
@@ -274,4 +274,60 @@ export const seedAgents = async (
   );
 
   await seedAgentChatMessages(dataSource, schemaName, workspaceId, threadId);
+};
+
+export const seedAgentsWithRoles = async (
+  dataSource: DataSource,
+  schemaName: string,
+  workspaceId: string,
+) => {
+  // First seed the agents
+  await seedAgents(dataSource, schemaName, workspaceId);
+
+  // Then assign roles to the agents
+  const agentId =
+    workspaceId === SEED_APPLE_WORKSPACE_ID
+      ? AGENT_DATA_SEED_IDS.APPLE_DEFAULT_AGENT
+      : AGENT_DATA_SEED_IDS.YCOMBINATOR_DEFAULT_AGENT;
+
+  // Get the workspace's default role
+  const workspaceResult = await dataSource
+    .createQueryBuilder()
+    .select('workspace."defaultRoleId"')
+    .from(`${schemaName}.${workspaceTableName}`, 'workspace')
+    .where('workspace.id = :workspaceId', { workspaceId })
+    .getRawOne();
+
+  if (workspaceResult?.defaultRoleId) {
+    // Assign the default workspace role to the agent
+    await dataSource
+      .createQueryBuilder()
+      .insert()
+      .into(`${schemaName}.roleTargets`, [
+        'roleId',
+        'agentId',
+        'workspaceId',
+        'createdAt',
+        'updatedAt',
+      ])
+      .orIgnore()
+      .values([
+        {
+          roleId: workspaceResult.defaultRoleId,
+          agentId: agentId,
+          workspaceId: workspaceId,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ])
+      .execute();
+
+    console.log(
+      `Assigned default role ${workspaceResult.defaultRoleId} to agent ${agentId} in workspace ${workspaceId}`,
+    );
+  } else {
+    console.warn(
+      `No default role found for workspace ${workspaceId}, agent ${agentId} will have limited access`,
+    );
+  }
 };

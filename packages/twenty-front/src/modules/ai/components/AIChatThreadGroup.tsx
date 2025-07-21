@@ -4,8 +4,8 @@ import { useRecoilComponentStateV2 } from '@/ui/utilities/state/component-state/
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useLingui } from '@lingui/react/macro';
-import { IconSparkles } from 'twenty-ui/display';
 import { AgentChatThread } from '~/generated-metadata/graphql';
+import { LowerLogo } from './LowerLogo';
 
 const StyledThreadsList = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const StyledThreadItem = styled.div<{ isSelected?: boolean }>`
   }
 `;
 
-const StyledSparkleIcon = styled.div`
+const StyledLogoIcon = styled.div`
   align-items: center;
   background: ${({ theme }) => theme.background.transparent.blue};
   border-radius: ${({ theme }) => theme.border.radius.sm};
@@ -99,12 +99,9 @@ export const AIChatThreadGroup = ({
             }}
             key={thread.id}
           >
-            <StyledSparkleIcon>
-              <IconSparkles
-                size={theme.icon.size.md}
-                color={theme.color.blue}
-              />
-            </StyledSparkleIcon>
+            <StyledLogoIcon>
+              <LowerLogo size={theme.icon.size.md} />
+            </StyledLogoIcon>
             <StyledThreadContent>
               <StyledThreadTitle>
                 {thread.title || t`Untitled`}

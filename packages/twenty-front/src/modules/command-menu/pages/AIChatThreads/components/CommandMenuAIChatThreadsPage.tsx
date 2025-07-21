@@ -24,7 +24,7 @@ export const CommandMenuAIChatThreadsPage = () => {
   if (!agentId) {
     return (
       <StyledContainer>
-        <StyledEmptyState>No AI Agent found.</StyledEmptyState>
+        <StyledEmptyState>No LOAI Agent found.</StyledEmptyState>
       </StyledContainer>
     );
   }
