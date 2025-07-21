@@ -188,7 +188,7 @@ export class MessageChannelWorkspaceEntity extends BaseWorkspaceEntity {
         color: 'red',
       },
     ],
-    defaultValue: `'${MessageChannelContactAutoCreationPolicy.SENT}'`,
+    defaultValue: `'${MessageChannelContactAutoCreationPolicy.NONE}'`,
   })
   contactAutoCreationPolicy: MessageChannelContactAutoCreationPolicy;
 
