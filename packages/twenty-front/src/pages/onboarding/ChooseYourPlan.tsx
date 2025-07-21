@@ -19,14 +19,14 @@ import { isDefined } from 'twenty-shared/utils';
 import { Loader } from 'twenty-ui/feedback';
 import { CardPicker, MainButton } from 'twenty-ui/input';
 import {
-  CAL_LINK,
-  ClickToActionLink,
-  TWENTY_PRICING_LINK,
+    CAL_LINK,
+    ClickToActionLink,
+    LOWER_REACH_PRICING_LINK,
 } from 'twenty-ui/navigation';
 import {
-  BillingPlanKey,
-  BillingPriceLicensedDto,
-  useBillingBaseProductPricesQuery,
+    BillingPlanKey,
+    BillingPriceLicensedDto,
+    useBillingBaseProductPricesQuery,
 } from '~/generated-metadata/graphql';
 
 const StyledSubscriptionContainer = styled.div<{
@@ -251,7 +251,7 @@ export const ChooseYourPlan = () => {
               <Trans>Log out</Trans>
             </ClickToActionLink>
             <span />
-            <ClickToActionLink href={TWENTY_PRICING_LINK}>
+            <ClickToActionLink href={LOWER_REACH_PRICING_LINK}>
               <Trans>Change Plan</Trans>
             </ClickToActionLink>
             <span />

@@ -149,13 +149,18 @@ const Sidepanel = () => {
   return isAuthenticated ? (
     <StyledIframe
       ref={iframeRef}
-      title="twenty-website"
+      title="lowerreach-website"
       src={clientUrl}
     ></StyledIframe>
   ) : (
     <StyledWrapper>
       <StyledContainer>
-        <img src="/logo/32-32.svg" alt="twenty-logo" height={40} width={40} />
+        <img
+          src="/logo/32-32.svg"
+          alt="lowerreach-logo"
+          height={40}
+          width={40}
+        />
         <StyledActionContainer>
           <MainButton
             title="Connect your account"

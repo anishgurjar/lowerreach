@@ -3,9 +3,9 @@ import { useSnackBar } from '@/ui/feedback/snack-bar-manager/hooks/useSnackBar';
 import { t } from '@lingui/core/macro';
 import { useState } from 'react';
 import {
-  BillingPlanKey,
-  SubscriptionInterval,
-  useCheckoutSessionMutation,
+    BillingPlanKey,
+    SubscriptionInterval,
+    useCheckoutSessionMutation,
 } from '~/generated-metadata/graphql';
 
 export const useHandleCheckoutSession = ({
@@ -40,7 +40,7 @@ export const useHandleCheckoutSession = ({
     setIsSubmitting(false);
     if (!data?.checkoutSession.url) {
       enqueueErrorSnackBar({
-        message: t`Checkout session error. Please retry or contact Twenty team`,
+        message: t`Checkout session error. Please retry or contact Lower Reach team`,
       });
       return;
     }

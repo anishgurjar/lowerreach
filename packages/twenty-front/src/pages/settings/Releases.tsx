@@ -84,7 +84,7 @@ export const Releases = () => {
   const [releases, setReleases] = useState<ReleaseNote[]>([]);
 
   useEffect(() => {
-    fetch('https://twenty.com/api/releases').then(async (res) => {
+    fetch('https://lowerreach.com/api/releases').then(async (res) => {
       const json = await res.json();
       for (const release of json) {
         release.html = String(

@@ -43,7 +43,12 @@ const PageInaccessible = () => {
   return (
     <StyledWrapper>
       <StyledContainer>
-        <img src="/logo/32-32.svg" alt="twenty-logo" height={40} width={40} />
+        <img
+          src="/logo/32-32.svg"
+          alt="lowerreach-logo"
+          height={40}
+          width={40}
+        />
         <StyledTextContainer>
           <StyledLargeText>
             Extension not available on the website
